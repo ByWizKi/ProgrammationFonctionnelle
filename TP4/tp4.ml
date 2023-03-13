@@ -29,7 +29,7 @@ assert (hauteur a1 = 1);;
 assert (hauteur a3 = 1);;
 assert (hauteur a4 = 2);;
 assert (hauteur a5 = 2);;
-assert (hauteur a6 = 3)
+assert (hauteur a6 = 3);;
 
 (**
 Renvoie une liste contenant tous les éléments de l'arbre
