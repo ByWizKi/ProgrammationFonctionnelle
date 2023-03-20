@@ -35,4 +35,12 @@ assert (list_of_arbre a6 = [ 1; 2; 1; 1; 2 ])
 
 (* 1.2 Gestion d'option, fold et minimum *)
 
-let lift_option2 (f : 'a option -> 'a -> 'a option) =;;
+let lift_option2 (f : 'a -> 'a -> 'a) : 'a option -> 'a -> 'a option = 
+  fun x y -> match x with None -> Some y | Some(z) -> Some(f z y);;
+
+
+let rec fold_left_arbre (f : 'a -> 'b arbre_n -> 'b arbre_n) (acc : 'b arbre_n) (arbre : 'a arbre_n) : 'b arbre_n = 
+  match arbre with
+  Feuille x -> f x acc 
+  | Noeud l -> 
+  
