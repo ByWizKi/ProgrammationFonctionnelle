@@ -64,3 +64,61 @@ let rec tri_insertion (l : int list) : int list =
 	[] -> []
 	| x::r -> insertion x (tri_insertion r);;
 
+(*Recherche dans une liste d'associaiton*)
+
+type association = int * string;;
+
+type resultat = Trouve of string | PasTrouve
+
+(**
+		[cherche] cette fonction permet de cherché une cle dans une liste d'association cle valeur
+		@param une liste de type somme résultat
+		@param un int qui sert de clé
+		@return un string
+*)
+
+let rec cherche (l : association list) (c : int): resultat = 
+	match l  with
+	[] -> PasTrouve
+	| (u, v)::r -> if u == c 
+									then Trouve v
+								else cherche r c;;	 
+
+(*Calculatrice en notation polonaise*)
+
+type binop = Plus | Moins | Mult | Div;;
+type elt_expr = Op of binop | Cst of int;;
+type resultatE = Ok of int | ErrDivZero | ErrExpr;;
+
+(**
+		[eval_op] cette fonction permet de evaluer le resultat d'un operateur applique a des valeurs
+		@param mon opérateur 
+		@param cst 1
+		@param cst 2
+		@return resultat en mode resultat
+*)
+
+let eval_op (op : binop) (cst1 : resultatE) (cst2 : resultatE) : resultatE = 
+	match (cst1, cst2) with
+	(Ok(x), Ok(v)) -> (match op with
+										|Plus -> Ok(x+v)
+										|Moins ->Ok(x-v)
+										|Mult ->Ok(x*v)
+										|Div->if v == 0
+														then ErrDivZero
+									        else Ok(x/v))
+	|(_,_) -> ErrExpr;;
+
+(**
+		[eval_expr] cette fonction permet devaluer une exprimer une expression issu d'une liste
+		@param elt_expr list
+		@return resultatE list
+*)
+
+let rec eval_expr (l : elt_expr list) : resultatE list =
+	match l with
+	[] -> []
+	| [Cst(x)] -> [Ok x]
+	| [Op(v)] -> [ErrExpr]
+	| Op(x)::Cst(y)::Cst(z)::r -> (eval_op x (Ok(y)) (Ok(z))) :: eval_expr r
+	| x::y::r ->[ErrExpr];;
