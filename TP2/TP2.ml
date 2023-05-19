@@ -64,7 +64,7 @@ let rec tri_insertion (l : int list) : int list =
 	[] -> []
 	| x::r -> insertion x (tri_insertion r);;
 
-(*Recherche dans une liste d'associaiton*)
+ (*Recherche dans une liste d'associaiton*)
 
 type association = int * string;;
 
