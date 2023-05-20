@@ -90,3 +90,11 @@ assert(first_n_string 5 = " 1 2 3 4 5");;
     @param un int
     @return la liste des nombres premier jusqu'a n
 *)
+
+let verfi_primes (n : int) = if n < 2
+    then false
+else not @@ is_divisible (List.init (n-2) (fun x -> x+2)) n;;
+
+let primes_list (n : int)= List.filter verfi_primes (List.init n Fun.id);;
+
+primes_list 100;;
