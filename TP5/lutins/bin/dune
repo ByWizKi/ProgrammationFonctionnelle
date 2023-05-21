@@ -1,0 +1,4 @@
+(executable
+ (public_name lutins)
+ (name main)
+ (libraries lutins))
